@@ -1,0 +1,18 @@
+---
+version: '3.5'
+
+services:
+  wiremock:
+    image: wiremock
+    build:
+      context: ./wiremock
+      args:
+        WIREMOCK_VERSION: 2.27.1
+    environment:
+      JDK_JAVA_OPTIONS:
+      WIREMOCK_OPTIONS: "--verbose --global-response-templating --disable-gzip"
+    ports:
+      - "9999:8080"
+    volumes:
+      - ./mappings:/wiremock/mappings:ro
+      - ./__files:/wiremock/__files:ro
